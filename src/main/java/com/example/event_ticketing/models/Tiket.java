@@ -2,7 +2,6 @@ package com.example.event_ticketing.models;
 
 import java.util.UUID;
 
-import com.example.event_ticketing.models.enums.OrderStatus;
 import com.example.event_ticketing.models.enums.TiketStatus;
 
 import jakarta.persistence.Column;
@@ -14,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +27,6 @@ public class Tiket {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @Column(nullable=false, unique = true)
-    private String kode_tiket;
 
     @Column(name = "kode_tiket", nullable = false, unique = true)
     private String kodeTiket;

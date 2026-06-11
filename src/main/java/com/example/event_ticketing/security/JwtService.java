@@ -17,10 +17,10 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-    @Value("${application.security.jwt.secret}")
+    @Value("${app.jwt.secret}")
     private String secretKey;
 
-    @Value("${application.security.jwt.expiration}")
+    @Value("${app.jwt.expiration}")
     private long expiration;
 
     private Claims extractAllClaims(String token) {
