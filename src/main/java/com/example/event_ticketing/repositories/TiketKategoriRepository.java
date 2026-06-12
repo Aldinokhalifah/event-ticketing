@@ -1,6 +1,7 @@
 package com.example.event_ticketing.repositories;
 
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
@@ -15,4 +16,6 @@ public interface TiketKategoriRepository extends JpaRepository<TiketKategori, UU
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT t FROM TiketKategori t WHERE t.id = :id")
     TiketKategori findByIdWithLock(UUID id);
+
+    List<TiketKategori> findByEventId(UUID eventId);
 }
