@@ -13,4 +13,7 @@ public interface TiketRepository extends JpaRepository<Tiket, UUID>{
     List<Tiket> findByUserId(UUID userId);
     
     Optional<Tiket> findByKodeTiket(String kodeTiket);
+
+    // Find tickets associated with a specific order item
+    List<Tiket> findByOrderItemId(UUID orderItemId);
 }

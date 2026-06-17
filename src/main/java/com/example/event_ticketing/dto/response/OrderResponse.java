@@ -21,6 +21,6 @@ public class OrderResponse {
     private LocalDateTime tanggalOrder;
     private BigDecimal totalHarga;
     private OrderStatus status;
-    private UUID user;
+    private UUID userId;
     private List<OrderItemResponse> items;
 }
