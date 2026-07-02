@@ -18,6 +18,7 @@ import com.example.event_ticketing.security.JwtService;
 
 @Service
 public class AuthService {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -33,7 +34,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
         Optional<User> emailRegistered = userRepository.findByEmail(request.getEmail());
 
-        if(emailRegistered.isPresent()) {
+        if (emailRegistered.isPresent()) {
             throw new RuntimeException("Email sudah terdaftar");
         }
 
@@ -43,22 +44,32 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
-        
+
         userRepository.save(user);
 
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token);
+        return AuthResponse.builder()
+                .token(token)
+                .nama(user.getNama())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build();
     }
 
     public AuthResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
         User user = (User) authentication.getPrincipal();
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token);
+        return AuthResponse.builder()
+                .token(token)
+                .nama(user.getNama())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build();
     }
 }
